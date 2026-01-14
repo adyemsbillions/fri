@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tiston Micro-Credit - Empowering Small Businesses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background: #f8f9fa;
+        }
+
+        /* Navigation */
+        nav {
+            background: #142747;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #d6b781;
+            color: #142747;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn-primary {
+            background: #d6b781;
+            color: #142747;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #d6b781;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid #d6b781;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #D4AF37;
+            color: #142747;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            color: white;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(10, 29, 86, 0.88) 0%,
+                rgba(10, 29, 86, 0.78) 25%,
+                rgba(10, 29, 86, 0.40) 50%,
+                rgba(10, 29, 86, 0.10) 75%,
+                transparent 100%
+            );
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .slideshow {
+            position: absolute;
+            inset: 0;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.8s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            padding: 0 5% 0 7%;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            margin-bottom: 2.5rem;
+            max-width: 580px;
+            opacity: 0.97;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 5%;
+        }
+
+        section:nth-child(even) {
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #142747;
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem 1.8rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.35s ease;
+            border-top: 4px solid #d6b781;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.8rem;
+            background: #f8f5ee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #142747;
+            border: 2px solid #d6b781;
+        }
+
+        .card h3 {
+            color: #142747;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #444;
+            font-size: 1rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: #142747;
+            color: white;
+            padding: 6rem 5%;
+        }
+
+        .cta-section .section-title {
+            color: white;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                height: 85vh;
+                text-align: center;
+            }
+
+            .hero::before {
+                background: rgba(10, 29, 86, 0.80);
+            }
+
+            .hero-content {
+                padding: 0 6%;
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero p {
+                font-size: 1.15rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon" ><a href="/images/logo.jpg"></a></div>
+            <span>Tiston Micro-Credit</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#investors">Investors</a></li>
+            <li><a href="#faqs">FAQs</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#apply" class="btn-primary">Apply for Financing</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="slideshow">
+            <div class="slide active" style="background-image: url('images/04.jpg');"></div>
+            <div class="slide" style="background-image: url('images/02.jpg');"></div>
+            <div class="slide" style="background-image: url('images/05.jpg');"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Empowering Small Businesses,<br>Driving Real Growth</h1>
+            <p>Fast, fair financial solutions built for Nigeria's entrepreneurs and growing SMEs.</p>
+            <div class="hero-buttons">
+                <a href="#apply" class="btn-primary">Apply for Financing</a>
+                <a href="#partner" class="btn-secondary">Partner with Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do -->
+    <section id="services">
+        <h2 class="section-title">What We Do</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">💰</div>
+                <h3>Flexible SME Loans</h3>
+                <p>Quick access to capital from ₦50,000 to ₦5,000,000 with terms that work for your business.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Financial Education</h3>
+                <p>Free training and resources to help you manage money, grow sales and build stronger businesses.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Ongoing Support</h3>
+                <p>Personal guidance and check-ins to help your business thrive long-term.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Businesses Choose Tiston -->
+    <section id="why-us">
+        <h2 class="section-title">Why Businesses Choose Tiston</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Fast & Reliable</h3>
+                <p>Get funds in 24-48 hours.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h3>Clear Terms</h3>
+                <p>Upfront rates, no hidden fees.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎁</div>
+                <h3>Loyalty Rewards</h3>
+                <p>Repeat borrowers earn more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+        <h2 class="section-title">Ready to Take Your Business to the Next Level?</h2>
+        <div class="hero-buttons" style="justify-content: center; margin-top: 2rem;">
+            <a href="#apply" class="btn-primary">Apply Now</a>
+            <a href="#partner" class="btn-secondary">Become a Partner</a>
+        </div>
+    </div>
+
+    <script>
+        // Simple slideshow
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+
+        function showSlide(index) {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === index);
+            });
+        }
+
+        function next() {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        }
+
+        if (slides.length > 0) {
+            showSlide(0);
+            setInterval(next, 6500);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
