@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRI - Meeting Needs, Making a Difference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Barlow', system-ui, -apple-system, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background: #f9fbff;
+        }
+
+        header {
+            background: white;
+            padding: 14px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: clamp(24px, 5vw, 28px);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo-blue { color: #6590FF; }
+        .logo-coral { color: #E07B39; }
+
+        nav.desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14.5px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: #6590FF; }
+
+        .donate-btn {
+            background: #E07B39;
+            color: white !important;
+            padding: 9px 22px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13.5px;
+            transition: all 0.3s;
+        }
+
+        .donate-btn:hover {
+            background: #c96a2f;
+            transform: translateY(-1px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icons a {
+            color: #ccc;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover { color: #6590FF; }
+
+        .hamburger {
+            display: none;
+            font-size: 26px;
+            color: #6590FF;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.18);
+            transition: right 0.35s ease;
+            z-index: 1100;
+            padding: 70px 20px 20px;
+        }
+
+        .mobile-menu.active { right: 0; }
+
+        .mobile-menu a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 16.5px;
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu .donate-btn {
+            margin: 20px 0;
+            text-align: center;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 32px;
+            color: #6590FF;
+            cursor: pointer;
+        }
+
+        /* Hero - smaller text & padding */
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            height: 680px;
+            background: linear-gradient(to bottom, #6590FF 45%, transparent 45%);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-images {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        .hero-image {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-image:nth-child(1) {
+            background-image: linear-gradient(rgba(101,144,255,0.55), rgba(101,144,255,0.55)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1200');
+        }
+        .hero-image:nth-child(2) { background-image: url('https://spweb-uploads.s3.theark.cloud/2026/01/IMG_8866-resized.jpg'); }
+        .hero-image:nth-child(3) { background-image: url('https://waterwellsforafrica.org/wp-content/uploads/2025/02/2025-02-19-From-Water-to-Wealth-DSC02488-1200x800-1.jpg'); }
+        .hero-image:nth-child(4) { background-image: url('https://ob.org/wp-content/uploads/2024/10/clean-water-solutions-in-africa.jpg'); }
+
+        .hero-content {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
+            width: 100%;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.95);
+            padding: clamp(35px, 5vw, 50px) clamp(25px, 5vw, 45px);
+            max-width: 950px;
+            margin: 0 auto;
+            border: 2px solid #E07B39;
+            border-radius: 10px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.18);
+        }
+
+        .hero-card h1 {
+            color: #6590FF;
+            font-size: clamp(38px, 7vw, 54px);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-card p {
+            font-size: clamp(17px, 2.8vw, 19px);
+            color: #555;
+            max-width: 780px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-card .cta-btn {
+            background: #E07B39;
+            color: white;
+            padding: 14px 40px;
+            font-size: 17px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 18px rgba(224,123,57,0.35);
+        }
+
+        .hero-card .cta-btn:hover {
+            background: #c96a2f;
+            transform: translateY(-3px);
+        }
+
+        /* Flash Appeal - smaller */
+        .flash-appeal {
+            background: linear-gradient(135deg, #E07B39 0%, #c96a2f 100%);
+            padding: 70px 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .flash-appeal h2 {
+            font-size: clamp(32px, 6vw, 42px);
+            margin-bottom: 20px;
+        }
+
+        .flash-appeal p {
+            font-size: 18px;
+            max-width: 780px;
+            margin: 0 auto 32px;
+        }
+
+        .flash-appeal-btn {
+            background: white;
+            color: #E07B39;
+            padding: 14px 45px;
+            font-size: 17px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .flash-appeal-btn:hover {
+            background: #f8f8f8;
+            transform: translateY(-2px);
+        }
+
+        /* Make a Difference - smaller */
+        .make-difference {
+            background: linear-gradient(135deg, #6590FF 0%, #4a6cd1 100%);
+            color: white;
+            padding: 90px 25px;
+            text-align: center;
+        }
+
+        .make-difference h2 {
+            font-size: clamp(34px, 6.5vw, 44px);
+            margin-bottom: 24px;
+        }
+
+        .make-difference p {
+            font-size: 18.5px;
+            max-width: 780px;
+            margin: 0 auto 40px;
+        }
+
+        .donate-large {
+            background: #E07B39;
+            color: white;
+            padding: 16px 55px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .donate-large:hover {
+            background: #c96a2f;
+            transform: translateY(-3px);
+        }
+
+        /* Who We Are - reduced sizes */
+        .who-we-are {
+            padding: 80px 25px;
+            background: white;
+        }
+
+        .who-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .who-image {
+            height: 420px;
+            background: url('https://images.unsplash.com/photo-1522202176988-66273c2b033f?w=800') center/cover no-repeat;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .who-content h2 {
+            color: #6590FF;
+            font-size: clamp(32px, 6.5vw, 40px);
+            margin-bottom: 30px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .who-content p {
+            font-size: 16.5px;
+            margin-bottom: 28px;
+        }
+
+        .learn-more-btn {
+            color: #6590FF;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 14.5px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .learn-more-btn:hover {
+            color: #E07B39;
+            transform: translateX(6px);
+        }
+
+        /* Latest News - smaller cards */
+        .latest-news {
+            padding: 80px 25px;
+            background: #f8faff;
+        }
+
+        .news-container h2 {
+            text-align: center;
+            color: #6590FF;
+            font-size: clamp(30px, 5.5vw, 36px);
+            margin-bottom: 60px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 40px rgba(101,144,255,0.18);
+        }
+
+        .news-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content {
+            padding: 24px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: #6590FF;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .news-content h3 {
+            font-size: 20px;
+            line-height: 1.35;
+            margin-bottom: 12px;
+        }
+
+        .see-all-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 12px 40px;
+            border: 2px solid #6590FF;
+            color: #6590FF;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .see-all-btn:hover {
+            background: #6590FF;
+            color: white;
+        }
+
+        /* Footer - more compact */
+        footer {
+            background: #6590FF;
+            color: white;
+            padding: 70px 25px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 17px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 14.5px;
+            line-height: 1.9;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 30px;
+            font-size: 13.5px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 1024px) {
+            .hero { height: auto; min-height: 75vh; padding: 100px 0 70px; }
+            .hero-card { padding: 40px 30px; }
+        }
+
+        @media (max-width: 900px) {
+            nav.desktop-nav { display: none; }
+            .hamburger { display: block; }
+            .who-container { grid-template-columns: 1fr; gap: 50px; }
+            .who-image { height: 380px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-card h1 { font-size: 36px; }
+            .flash-appeal h2 { font-size: 32px; }
+            .make-difference h2 { font-size: 34px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="GARI-AFRI Logo" width="48" height="48" style="margin-right: 10px;">
+                <!-- <span class="logo-blue">GARI</span><span class="logo-coral">-</span><span class="logo-blue">AFRICA</span> -->
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="#">Emergency Fund</a>
+                <a href="who.html">About</a>
+                <a href="#">What We Do</a>
+                <a href="getin.html">Get Involved</a>
+                <a href="#">Media</a>
+                <a href="#">Contact Us</a>
+                <a href="donate.html" class="donate-btn">DONATE</a>
+            </nav>
+
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-close" id="closeMenu">×</div>
+        <a href="#">Emergency Fund</a>
+        <a href="who.html">About</a>
+        <a href="#">What We Do</a>
+        <a href="getin.html">Get Involved</a>
+        <a href="#">Media</a>
+        <a href="#">Contact Us</a>
+        <a href="#" class="donate-btn">DONATE</a>
+        <div style="margin-top: 30px; text-align: center;">
+            <div class="social-icons" style="justify-content: center; gap: 20px;">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-images">
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-card">
+                <h1>Igniting Hope and Rebuilding Lives<br>Wherever We're Needed. As Long As It Takes.</h1>
+                <p>Crises bring out the best in humanity — people working shoulder-to-shoulder to restore hope and dignity. Join us across Africa.</p>
+                <a href="#" class="cta-btn">DONATE TODAY →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Appeal -->
+    <section class="flash-appeal">
+        <div class="flash-appeal-container">
+            <h2>Emergency Appeal: Crisis in the Sahel</h2>
+            <p>Escalating conflict, drought, and displacement are pushing millions toward hunger and disease across West and Central Africa. Every moment counts.</p>
+            <a href="#" class="flash-appeal-btn">DONATE NOW →</a>
+        </div>
+    </section>
+
+    <!-- Make a Difference -->
+    <section class="make-difference">
+        <h2>You can make a difference. There's no time to lose.</h2>
+        <p>The future is immediate. Support resilient communities across Africa as they rebuild from crisis and reclaim their lives.</p>
+        <button class="donate-large">DONATE NOW →</button>
+    </section>
+
+    <!-- Who We Are -->
+    <section class="who-we-are">
+        <div class="who-container">
+            <div class="who-image"></div>
+            <div class="who-content">
+                <h2>WHO WE ARE</h2>
+                <p>First-Line Relief Initiative is a humanitarian organization dedicated to providing life-saving assistance, fostering resilience, and supporting sustainable development across Africa. We collaborate with communities, local governments, and global partners to deliver targeted interventions that uphold dignity, protect human rights, and ensure equitable access to essential services.</p>
+                <p><strong>Our Mission:</strong> Igniting hope and Rebuilding lives. To provide life-saving assistance, promoting sustainable development, and empower vulnerable populations through integrated humanitarian efforts in water and sanitation, shelter, protection, environmental management, education, food security, and healthcare.</p>
+                <p><strong>Our Vision:</strong> To create an inclusive and thriving society where every individual has equal and equitable access to fundamental rights, dignity, and opportunities for a better life.</p>
+                <p><strong>Our Core Values:</strong> Accountability, Transparency, Integrity, Humanity, Sustainability, Faith.</p>
+                <a href="who.html" class="learn-more-btn">LEARN MORE →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="latest-news">
+        <div class="news-container">
+            <h2>LATEST NEWS</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>PRESS RELEASE</span>
+                            <span>February 2026</span>
+                        </div>
+                        <h3>FRI Launches WASH Intervention in Flood-Affected Communities</h3>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>NEWS COVERAGE</span>
+                            <span>January 2026</span>
+                        </div>
+                        <div class="news-source">Local Media</div>
+                        <h3>Distribution of Shelter and NFIs Reaches 5,000 Displaced Families</h3>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>UPDATE</span>
+                            <span>December 2025</span>
+                        </div>
+                        <div class="news-source">FRI Field Report</div>
+                        <h3>Mental Health Support Expanded in Refugee Settlements</h3>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="see-all-btn">SEE ALL NEWS</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About</h3>
+                <a href="who.html">Who We Are</a>
+                <a href="#">Our Mission & Vision</a>
+                <a href="#">Core Values</a>
+                <a href="#">Annual Reports</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>What We Do</h3>
+                <a href="#">WASH</a>
+                <a href="#">Shelter & NFI</a>
+                <a href="#">Protection</a>
+                <a href="#">Education</a>
+                <a href="#">Food Security & Livelihood</a>
+                <a href="#">Health & MHPSS</a>
+            </div>
+            <div class="footer-section">
+                <h3>Get Involved</h3>
+                <a href="getin.html">Donate</a>
+                <a href="#">Partner With Us</a>
+                <a href="#">Volunteer</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>151, Adetokunbo Ademola Crescent</p>
+                <p>Wuse II, FCT State, Nigeria</p>
+                <p>Email: <a href="mailto:gariafrica.info@gmail.com">gariafrica.info@gmail.com</a></p>
+                <p>Motto: "Meeting needs, making a difference."</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 FRI. All rights reserved. | Privacy Policy | Terms of Use</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        if (hamburger && mobileMenu && closeMenu) {
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+            });
+
+            closeMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

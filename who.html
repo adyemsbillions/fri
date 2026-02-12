@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who We Are - First Line Relief Initiative</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Barlow', system-ui, sans-serif;
+            color: #333;
+            line-height: 1.7;
+            background: #f9fbff;
+        }
+
+        header {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: clamp(1.6rem, 5vw, 2rem);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo-blue { color: #6590FF; }
+        .logo-coral { color: #E07B39; }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            color: #6590FF;
+        }
+
+        .donate-btn {
+            background: #E07B39;
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .donate-btn:hover {
+            background: #c96a2f;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #6590FF;
+        }
+
+        .who-section {
+            padding: 4rem 1.2rem 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .who-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(101,144,255,0.15);
+            object-fit: cover;
+        }
+
+        .who-content h1 {
+            color: #6590FF;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .who-content h2 {
+            color: #E07B39;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .who-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.4rem;
+            color: #444;
+        }
+
+        .values-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .value-item {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 4px solid #6590FF;
+        }
+
+        .value-item strong {
+            color: #6590FF;
+            display: block;
+            margin-bottom: 0.6rem;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #6590FF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            color: #E07B39;
+        }
+
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                gap: 1rem;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .donate-btn {
+                width: fit-content;
+                margin: 0.5rem 0;
+            }
+
+            .who-content h1 {
+                font-size: 2rem;
+            }
+
+            .who-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .who-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .who-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 5rem;
+            }
+
+            .values-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-blue">FLRI</span>
+            </a>
+
+            <div class="menu-toggle" id="menuToggle">☰</div>
+
+            <nav id="mainNav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="what-we-do.html">What We Do</a>
+                <a href="get-involved.html">Get Involved</a>
+                <a href="contact.html">Contact</a>
+                <a href="donate.html" class="donate-btn">Donate</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="who-section">
+        <div class="who-grid">
+            <div>
+                <img src="students.png" alt="Students benefiting from FLRI programs" class="who-image">
+            </div>
+
+            <div class="who-content">
+                <h1>WHO WE ARE</h1>
+
+                <p>First Line Relief Initiative (FLRI) is a humanitarian organization dedicated to providing life-saving assistance, fostering resilience, and supporting sustainable development across Africa.</p>
+
+                <p>We collaborate with communities, local governments, and global partners to deliver targeted interventions that uphold dignity, protect human rights, and ensure equitable access to essential services.</p>
+
+                <h2>Our Mission</h2>
+                <p>Igniting hope and rebuilding lives. To provide life-saving assistance, promote sustainable development, and empower vulnerable populations through integrated humanitarian efforts in water and sanitation, shelter, protection, environmental management, education, food security, and healthcare.</p>
+
+                <h2>Our Vision</h2>
+                <p>To create an inclusive and thriving society where every individual has equal and equitable access to fundamental rights, dignity, and opportunities for a better life.</p>
+
+                <h2>Our Core Values</h2>
+                <div class="values-list">
+                    <div class="value-item">
+                        <strong>Accountability</strong>
+                        We are responsible stewards of resources and transparent in our actions.
+                    </div>
+                    <div class="value-item">
+                        <strong>Transparency</strong>
+                        We communicate openly about our work, finances, and impact.
+                    </div>
+                    <div class="value-item">
+                        <strong>Integrity</strong>
+                        We act with honesty, ethics, and moral courage in everything we do.
+                    </div>
+                    <div class="value-item">
+                        <strong>Humanity</strong>
+                        We recognize the dignity and worth of every person affected by crisis or poverty.
+                    </div>
+                    <div class="value-item">
+                        <strong>Sustainability</strong>
+                        We design programs that build long-term resilience and self-reliance.
+                    </div>
+                    <div class="value-item">
+                        <strong>Faith</strong>
+                        We are guided by compassion, hope, and belief in positive change.
+                    </div>
+                </div>
+
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

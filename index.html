@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Tiston Micro-Credit - Empowering Small Businesses</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRI - First-Line Relief Initiative</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,409 +13,730 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Barlow', system-ui, -apple-system, sans-serif;
             color: #333;
             line-height: 1.6;
-            background: #f8f9fa;
         }
 
-        /* Navigation */
-        nav {
-            background: #142747;
-            padding: 1rem 5%;
+        header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: #d6b781;
-            color: #142747;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        .btn-primary {
-            background: #d6b781;
-            color: #142747;
-            padding: 0.6rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            font-size: clamp(26px, 5vw, 32px);
             font-weight: 600;
             text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
         }
 
-        .btn-primary:hover {
-            background: #d6b781;
-            transform: translateY(-2px);
+        .logo-text { color: #6590FF; }
+        .logo-orange { color: #E07B39; }
+        .logo-icon { color: #6590FF; margin-left: 2px; }
+
+        nav.desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border: 2px solid #d6b781;
-            border-radius: 4px;
-            cursor: pointer;
+        nav a {
+            color: #666;
             text-decoration: none;
-            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 400;
+            transition: color 0.3s;
         }
 
-        .btn-secondary:hover {
-            background: #D4AF37;
-            color: #142747;
+        nav a:hover { color: #6590FF; }
+
+        .dropdown::after {
+            content: ' ▾';
+            font-size: 12px;
+        }
+
+        .donate-btn {
+            background: transparent;
+            color: #E07B39 !important;
+            padding: 10px 22px;
+            border: 2px solid #E07B39;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .donate-btn:hover {
+            background: #E07B39;
+            color: white !important;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icons a {
+            color: #ccc;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover { color: #6590FF; }
+
+        /* Mobile menu */
+        .hamburger {
+            display: none;
+            font-size: 28px;
+            color: #6590FF;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+            transition: right 0.35s ease;
+            z-index: 1100;
+            padding: 80px 25px 25px;
+        }
+
+        .mobile-menu.active { right: 0; }
+
+        .mobile-menu a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-menu .donate-btn {
+            margin: 20px 0;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 32px;
+            color: #6590FF;
+            cursor: pointer;
         }
 
         /* Hero */
         .hero {
             position: relative;
-            height: 90vh;
-            min-height: 600px;
-            color: white;
+            min-height: 80vh;
+            height: 720px;
+            background: linear-gradient(to bottom, #6590FF 50%, transparent 50%);
             display: flex;
             align-items: center;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: "";
+        .hero-images {
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to right,
-                rgba(10, 29, 86, 0.88) 0%,
-                rgba(10, 29, 86, 0.78) 25%,
-                rgba(10, 29, 86, 0.40) 50%,
-                rgba(10, 29, 86, 0.10) 75%,
-                transparent 100%
-            );
-            z-index: 1;
-            pointer-events: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
         }
 
-        .slideshow {
-            position: absolute;
-            inset: 0;
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
+        .hero-image {
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            transition: opacity 1.8s ease-in-out;
         }
 
-        .slide.active {
-            opacity: 1;
+        .hero-image:nth-child(1) {
+            background-image: linear-gradient(rgba(101,144,255,0.65), rgba(101,144,255,0.65)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1200');
         }
+        .hero-image:nth-child(2) { background-image: url('https://spweb-uploads.s3.theark.cloud/2026/01/IMG_8866-resized.jpg'); }
+        .hero-image:nth-child(3) { background-image: url('https://waterwellsforafrica.org/wp-content/uploads/2025/02/2025-02-19-From-Water-to-Wealth-DSC02488-1200x800-1.jpg'); }
+        .hero-image:nth-child(4) { background-image: url('https://ob.org/wp-content/uploads/2024/10/clean-water-solutions-in-africa.jpg'); }
 
         .hero-content {
             position: relative;
-            z-index: 2;
-            max-width: 720px;
-            padding: 0 5% 0 7%;
-        }
-
-        .hero h1 {
-            font-size: 3.8rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            line-height: 1.1;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-
-        .hero p {
-            font-size: 1.35rem;
-            margin-bottom: 2.5rem;
-            max-width: 580px;
-            opacity: 0.97;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        /* Sections */
-        section {
-            padding: 5rem 5%;
-        }
-
-        section:nth-child(even) {
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: #142747;
-            margin-bottom: 3.5rem;
-            font-weight: 700;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 25px;
+            width: 100%;
+            z-index: 10;
         }
 
-        .card {
+        .hero-card {
             background: white;
-            padding: 2.5rem 1.8rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.35s ease;
-            border-top: 4px solid #d6b781;
+            padding: clamp(30px, 6vw, 50px) clamp(25px, 5vw, 60px);
+            max-width: 900px;
+            border-left: 5px solid #E07B39;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        .hero-card h1 {
+            color: #6590FF;
+            font-size: clamp(32px, 6.5vw, 42px);
+            font-weight: 400;
+            line-height: 1.3;
+            flex: 1;
+            min-width: 280px;
         }
 
-        .card-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 1.8rem;
-            background: #f8f5ee;
+        .hero-card .cta-btn {
+            background: #6590FF;
+            color: white;
+            padding: 16px 36px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+            font-size: 15px;
+            white-space: nowrap;
+            border-radius: 4px;
+        }
+
+        .hero-card .cta-btn:hover {
+            background: #4a6cd1;
+            transform: translateX(4px);
+        }
+
+        .play-button {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
-            color: #142747;
-            border: 2px solid #d6b781;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 15;
+            font-size: 24px;
+            color: #6590FF;
         }
 
-        .card h3 {
-            color: #142747;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+        /* Flash Appeal */
+        .flash-appeal {
+            background: linear-gradient(135deg, #E07B39 0%, black 100%);
+            padding: 60px 20px;
         }
 
-        .card p {
-            color: #444;
-            font-size: 1rem;
+        .flash-appeal-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        /* CTA */
-        .cta-section {
+        .flash-appeal-text h2 {
+            color: #6590FF;
+            font-size: clamp(28px, 5.5vw, 38px);
+            margin-bottom: 20px;
+        }
+
+        .flash-appeal-text p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .flash-appeal-btn {
+            background: #6590FF;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            display: inline-block;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .flash-appeal-btn:hover {
+            background: #4a6cd1;
+            transform: translateX(4px);
+        }
+
+        .flash-appeal-image {
+            height: 320px;
+            background: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800') center/cover;
+            border-radius: 8px;
+        }
+
+        /* Who We Are */
+        .who-we-are {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .who-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .who-image {
+            height: 480px;
+            background: url('students.png') center/cover;
+            border-radius: 8px;
+        }
+
+        .who-content h2 {
+            color: #6590FF;
+            font-size: clamp(36px, 7vw, 48px);
+            font-weight: 400;
+            margin-bottom: 35px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .who-content p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.9;
+            margin-bottom: 35px;
+        }
+
+        .learn-more-btn {
+            color: #6590FF;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .learn-more-btn:hover { transform: translateX(6px); }
+
+        /* Latest News */
+        .latest-news {
+            padding: 80px 20px;
+            background: #f8f8f8;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .news-container h2 {
             text-align: center;
-            background: #142747;
-            color: white;
-            padding: 6rem 5%;
+            color: #555;
+            font-size: clamp(26px, 5vw, 32px);
+            margin-bottom: 50px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
         }
 
-        .cta-section .section-title {
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: white;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .news-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #6590FF;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .news-content h3 {
+            font-size: 21px;
+            line-height: 1.35;
+            margin-bottom: 12px;
+        }
+
+        .see-all-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 14px 38px;
+            border: 2px solid #666;
+            color: #666;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .see-all-btn:hover {
+            background: #666;
             color: white;
         }
 
-        /* Mobile Responsive */
+        /* Footer */
+        footer {
+            background: #6590FF;
+            color: white;
+            padding: 70px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 15px;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.18);
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .hero { height: 640px; }
+            .hero-card { padding: 35px 40px; }
+        }
+
+        @media (max-width: 900px) {
+            nav.desktop-nav { display: none; }
+            .hamburger { display: block; }
+            .hero-images { opacity: 0.9; }
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .hero {
-                height: 85vh;
-                text-align: center;
+                min-height: 100vh;
+                height: auto;
+                padding: 100px 0 80px;
+                background: #6590FF;
             }
 
-            .hero::before {
-                background: rgba(10, 29, 86, 0.80);
-            }
-
-            .hero-content {
-                padding: 0 6%;
-                max-width: 100%;
-            }
-
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-
-            .hero p {
-                font-size: 1.15rem;
-            }
-
-            .hero-buttons {
+            .hero-content { padding: 0 20px; }
+            .hero-card {
                 flex-direction: column;
-                gap: 1rem;
+                text-align: center;
+                padding: 40px 25px;
             }
 
-            .cards-grid {
+            .play-button {
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .flash-appeal-content,
+            .who-container {
                 grid-template-columns: 1fr;
             }
 
-            .section-title {
-                font-size: 2rem;
-            }
+            .flash-appeal-image { height: 280px; }
+            .who-image { height: 400px; }
+        }
+
+        @media (max-width: 480px) {
+            .header-container { padding: 0 15px; }
+            .hero-card h1 { font-size: 28px; }
+            .flash-appeal-text h2 { font-size: 32px; }
+            .news-image { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <div class="logo-icon" ><a href="/images/logo.jpg"></a></div>
-            <span>Tiston Micro-Credit</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#services">Our Services</a></li>
-            <li><a href="#investors">Investors</a></li>
-            <li><a href="#faqs">FAQs</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-            <li><a href="#apply" class="btn-primary">Apply for Financing</a></li>
-        </ul>
-    </nav>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="GARI-AFRICA Logo" width="50" height="50">
+            </a>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="slideshow">
-            <div class="slide active" style="background-image: url('images/04.jpg');"></div>
-            <div class="slide" style="background-image: url('images/02.jpg');"></div>
-            <div class="slide" style="background-image: url('images/05.jpg');"></div>
-        </div>
+            <nav class="desktop-nav">
+                <a href="#">Emergency Fund</a>
+                <a href="who.html" class="dropdown">About</a>
+                <!-- <a href="#" class="dropdown">What We Do</a> -->
+                <a href="get-involved.html">Get Involved</a>
+                <!-- <a href="#" class="dropdown">Media</a> -->
+                <a href="contact.html">Contact Us</a>
+                <a href="donate.html" class="donate-btn">DONATE</a>
+            </nav>
 
-        <div class="hero-content">
-            <h1>Empowering Small Businesses,<br>Driving Real Growth</h1>
-            <p>Fast, fair financial solutions built for Nigeria's entrepreneurs and growing SMEs.</p>
-            <div class="hero-buttons">
-                <a href="#apply" class="btn-primary">Apply for Financing</a>
-                <a href="#partner" class="btn-secondary">Partner with Us</a>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-        </div>
-    </section>
 
-    <!-- What We Do -->
-    <section id="services">
-        <h2 class="section-title">What We Do</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">💰</div>
-                <h3>Flexible SME Loans</h3>
-                <p>Quick access to capital from ₦50,000 to ₦5,000,000 with terms that work for your business.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎓</div>
-                <h3>Financial Education</h3>
-                <p>Free training and resources to help you manage money, grow sales and build stronger businesses.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤝</div>
-                <h3>Ongoing Support</h3>
-                <p>Personal guidance and check-ins to help your business thrive long-term.</p>
-            </div>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
         </div>
-    </section>
+    </header>
 
-    <!-- Why Businesses Choose Tiston -->
-    <section id="why-us">
-        <h2 class="section-title">Why Businesses Choose Tiston</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>Fast & Reliable</h3>
-                <p>Get funds in 24-48 hours.</p>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-close" id="closeMenu">×</div>
+        <a href="#">Emergency Fund</a>
+        <a href="#">About</a>
+        <a href="#">What We Do</a>
+        <a href="#">Get Involved</a>
+        <a href="#">Media</a>
+        <a href="#">Contact Us</a>
+        <a href="#" class="donate-btn">DONATE</a>
+        <div style="margin-top:30px; text-align:center;">
+            <div class="social-icons" style="justify-content:center;">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="card">
-                <div class="card-icon">📋</div>
-                <h3>Clear Terms</h3>
-                <p>Upfront rates, no hidden fees.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🎁</div>
-                <h3>Loyalty Rewards</h3>
-                <p>Repeat borrowers earn more.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <div class="cta-section">
-        <h2 class="section-title">Ready to Take Your Business to the Next Level?</h2>
-        <div class="hero-buttons" style="justify-content: center; margin-top: 2rem;">
-            <a href="#apply" class="btn-primary">Apply Now</a>
-            <a href="#partner" class="btn-secondary">Become a Partner</a>
         </div>
     </div>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-images">
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+            <div class="hero-image"></div>
+        </div>
+        <div class="play-button">▶</div>
+        <div class="hero-content">
+            <div class="hero-card">
+                <h1>Igniting Hope and Rebuilding Lives</h1>
+                <a href="#" class="cta-btn">DONATE TODAY</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Appeal -->
+    <section class="flash-appeal">
+        <div class="flash-appeal-container">
+            <div class="flash-appeal-content">
+                <div class="flash-appeal-text">
+                    <h2>Emergency Appeal: Crisis in the Sahel</h2>
+                    <p>Escalating conflict, drought, and displacement are pushing millions toward hunger and disease across West and Central Africa.</p>
+                    <a href="#" class="flash-appeal-btn">DONATE NOW</a>
+                </div>
+                <div class="flash-appeal-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We Are -->
+    <section class="who-we-are">
+        <div class="who-container">
+            <div class="who-image"></div>
+            <div class="who-content">
+                <h2>WHO WE ARE</h2>
+                <p>First Line Relief Initiative (FLRI) is a humanitarian organization dedicated to providing life-saving assistance, fostering resilience, and supporting sustainable development across Africa. We collaborate with communities, local governments, and global partners to deliver targeted interventions that uphold dignity, protect human rights, and ensure equitable access to essential services.</p>
+                <!-- <p><strong>Our Mission:</strong> Igniting hope and Rebuilding lives. To provide life-saving assistance, promoting sustainable development, and empower vulnerable populations through integrated humanitarian efforts in water and sanitation, shelter, protection, environmental management, education, food security, and healthcare.</p>
+                <p><strong>Our Vision:</strong> To create an inclusive and thriving society where every individual has equal and equitable access to fundamental right, dignity, and opportunities for a better life.</p>
+                <p><strong>Our Core Values:</strong> Accountability, Transparency, Integrity, Humanity, Sustainability, Faith.</p> -->
+                <a href="who.html" class="learn-more-btn">LEARN MORE →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="latest-news">
+        <div class="news-container">
+            <h2>LATEST NEWS</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>PRESS RELEASE</span>
+                            <span>February 2026</span>
+                        </div>
+                        <h3>FRI Launches WASH Intervention in Flood-Affected Communities</h3>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>NEWS COVERAGE</span>
+                            <span>January 2026</span>
+                        </div>
+                        <div class="news-source">Local Media</div>
+                        <h3>Distribution of Shelter and NFIs Reaches 5,000 Displaced Families</h3>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800')"></div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>UPDATE</span>
+                            <span>December 2025</span>
+                        </div>
+                        <div class="news-source">FRI Field Report</div>
+                        <h3>Mental Health Support Expanded in Refugee Settlements</h3>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="see-all-btn">SEE ALL NEWS</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Who We Are</a></li>
+                        <li><a href="#">Our Mission & Vision</a></li>
+                        <li><a href="#">Core Values</a></li>
+                        <li><a href="#">Annual Reports</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>What We Do</h3>
+                    <ul>
+                        <li><a href="#">WASH</a></li>
+                        <li><a href="#">Shelter & NFI</a></li>
+                        <li><a href="#">Protection</a></li>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Food Security & Livelihood</a></li>
+                        <li><a href="#">Health & MHPSS</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                   <a href="get-involved.html"> <h3>Get Involved</h3></a>
+                    <ul>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Partner With Us</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>151, Adetokunbo Ademola Crescent</li>
+                        <li>Wuse II, FCT State, Nigeria</li>
+                        <li>Email: <a href="mailto:gariafrica.info@gmail.com">gariafrica.info@gmail.com</a></li>
+                        <li>Motto: "Meeting needs, making a difference."</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 FRI All rights reserved. | Privacy Policy | Terms of Use</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Simple slideshow
-        const slides = document.querySelectorAll('.slide');
-        let current = 0;
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
 
-        function showSlide(index) {
-            slides.forEach((s, i) => {
-                s.classList.toggle('active', i === index);
-            });
-        }
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
 
-        function next() {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        }
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
 
-        if (slides.length > 0) {
-            showSlide(0);
-            setInterval(next, 6500);
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
         });
     </script>
 </body>
